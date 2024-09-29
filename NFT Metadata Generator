@@ -1,0 +1,24 @@
+import json
+import random
+
+traits = {
+    "background": ["blue", "red", "green", "yellow"],
+    "eyes": ["normal", "happy", "angry", "sad"],
+    "mouth": ["smile", "frown", "open", "grin"],
+    "hat": ["none", "cap", "crown", "halo"]
+}
+
+def generate_metadata(nft_id):
+    metadata = {}
+    metadata['name'] = f"NFT #{nft_id}"
+    metadata['attributes'] = {trait: random.choice(options) for trait, options in traits.items()}
+    
+    with open(f"metadata_{nft_id}.json", "w") as file:
+        json.dump(metadata, file, indent=4)
+    
+    print(f"Metadata for NFT #{nft_id} generated!")
+
+if __name__ == "__main__":
+    num_nfts = int(input("Enter number of NFTs to generate: "))
+    for i in range(1, num_nfts + 1):
+        generate_metadata(i)
